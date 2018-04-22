@@ -9,7 +9,9 @@ flashrom -p serprog:dev=/dev/$port:$baud -r backup.hex
 fi
 if [ $device = "raspberry" ]
 then
-flashrom -p linux_spi:dev=/dev/spidev0.0 -r backup.hex
+modprobe spi_bcm2835
+modprobe spidev
+flashrom -p linux_spi:dev=/dev/spidev0.0,spispeed=1000 -r backup.hex
 fi
 
 echo "n'oubliez pas de renomer le fichier !!!!"
